@@ -92,6 +92,7 @@ public:
     
     bool get_dik_name(int dik, LPSTR dest, int dest_sz) const;
     static void clip_cursor(bool clip);
+    static void clip_cursor_rect();
 };
 
 extern ENGINE_API CInput* pInput;

@@ -258,6 +258,9 @@ void CRenderDevice::on_idle()
             FrameMove();
         }
 
+        if (g_bLoaded && b_is_Active && psDeviceFlags.test(rsForceClipCursor) && pInput && pInput->exclusive_mode())
+            CInput::clip_cursor_rect();
+
         if (!g_loading_events.empty()) // that is to avoid loading screen flickering
         {
             pApp->LoadDraw();

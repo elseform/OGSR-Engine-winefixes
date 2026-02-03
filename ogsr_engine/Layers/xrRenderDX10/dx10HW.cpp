@@ -121,7 +121,8 @@ void CHW::CreateSwapChain2(HWND hw)
     desc.Flags = DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH | DXGI_SWAP_CHAIN_FLAG_ALLOW_TEARING | DXGI_SWAP_CHAIN_FLAG_FRAME_LATENCY_WAITABLE_OBJECT;
 
     DXGI_SWAP_CHAIN_FULLSCREEN_DESC fullscreen_desc{};
-    fullscreen_desc.Windowed = true;
+    const bool fullscreen = psDeviceFlags.test(rsFullscreen);
+    fullscreen_desc.Windowed = !fullscreen;
 
     fullscreen_desc.RefreshRate.Numerator = 60;
     fullscreen_desc.RefreshRate.Denominator = 1;
@@ -138,6 +139,9 @@ void CHW::CreateSwapChain2(HWND hw)
     R_CHK(swapchain->QueryInterface(IID_PPV_ARGS(&m_pSwapChain)));
 
     _RELEASE(swapchain);
+
+    if (fullscreen)
+        R_CHK(m_pSwapChain->SetFullscreenState(TRUE, nullptr));
 
     R_CHK(m_pSwapChain->SetMaximumFrameLatency(2));
     m_frameLatencyWaitableObject = m_pSwapChain->GetFrameLatencyWaitableObject();
@@ -303,6 +307,9 @@ void CHW::ResetDevice(HWND m_hWnd)
     CHK_DX(m_pSwapChain->ResizeBuffers(cd.BufferCount, desc.Width, desc.Height, desc.Format
         , DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH | DXGI_SWAP_CHAIN_FLAG_ALLOW_TEARING | DXGI_SWAP_CHAIN_FLAG_FRAME_LATENCY_WAITABLE_OBJECT));
 
+    const bool fullscreen = psDeviceFlags.test(rsFullscreen);
+    CHK_DX(m_pSwapChain->SetFullscreenState(fullscreen ? TRUE : FALSE, nullptr));
+
     UpdateWindowProps(m_hWnd);
 
     Device.ShowMainWindow();
@@ -405,6 +412,27 @@ void CHW::DumpVideoMemoryUsage() const
 void CHW::UpdateWindowProps(HWND m_hWnd) const
 {
     LONG_PTR dwWindowStyle = 0;
+    const bool fullscreen = psDeviceFlags.test(rsFullscreen);
+
+    if (fullscreen)
+    {
+        dwWindowStyle = WS_POPUP;
+        SetWindowLongPtr(m_hWnd, GWL_STYLE, dwWindowStyle);
+
+        RECT monitorRect{};
+        HMONITOR monitor = MonitorFromWindow(m_hWnd, MONITOR_DEFAULTTONEAREST);
+        MONITORINFO mi{};
+        mi.cbSize = sizeof(mi);
+        if (GetMonitorInfo(monitor, &mi))
+            monitorRect = mi.rcMonitor;
+
+        SetWindowPos(m_hWnd, HWND_NOTOPMOST,
+            monitorRect.left, monitorRect.top,
+            monitorRect.right - monitorRect.left,
+            monitorRect.bottom - monitorRect.top,
+            SWP_NOCOPYBITS | SWP_DRAWFRAME);
+        return;
+    }
 
     // Set window properties depending on what mode were in.
     static const bool bBordersMode = !!strstr(Core.Params, "-draw_borders");
