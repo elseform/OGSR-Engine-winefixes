@@ -11,6 +11,11 @@ on:
         options:
           - Debug
           - Release
+      clean_build:
+        description: Clean rebuild (slower)
+        required: true
+        type: boolean
+        default: false
 
 jobs:
   build:
@@ -29,7 +34,14 @@ jobs:
         shell: cmd
         run: Update_Components.cmd
 
-      - name: Build engine
+      - name: Build engine (incremental)
+        if: ${{ !inputs.clean_build }}
+        shell: cmd
+        run: |
+          msbuild Engine.sln /m /t:Build /p:Configuration=${{ inputs.configuration }} /p:Platform=x64
+
+      - name: Build engine (clean)
+        if: ${{ inputs.clean_build }}
         shell: cmd
         run: |
           msbuild Engine.sln /m /t:Rebuild /p:Configuration=${{ inputs.configuration }} /p:Platform=x64
