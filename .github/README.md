@@ -1,96 +1,85 @@
-<p align="center">
-  <a href="https://github.com/OGSR/OGSR-Engine/releases/latest"><img src="https://img.shields.io/github/release/OGSR/OGSR-Engine.svg?style=flat-square" alt="GitHub release"></a>
-  <a href="https://github.com/OGSR/OGSR-Engine/releases/latest"><img src="https://img.shields.io/github/downloads/OGSR/OGSR-Engine/total.svg?style=flat-square" alt="Total downloads"></a>
-  <a href="https://github.com/OGSR/OGSR-Engine/actions?query=event:push+workflow:%22Main+Workflow%22"><img src="https://img.shields.io/github/actions/workflow/status/OGSR/OGSR-Engine/push.yml?branch=main&label=build&logo=github&style=flat-square" alt="Build Status"></a>
-<p align="center">
-  <a href="https://discord.com/servers/ogsr-508530704674455562"><img src="https://img.shields.io/discord/508530704674455562.svg?style=for-the-badge&label=DISCORD&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2)" alt="Discord"></a>
+# OGSR-Engine-winefixes
 
-<h3 align="center"> <a href="https://discord.com/servers/ogsr-508530704674455562"><b>!THIS IS FOR DEVELOPERS ONLY, IF YOU'RE LOOKING FOR OGSR MOD/OGSR:GUNSLINGER, JOIN THE DISCORD ABOVE!</b></a></h3>
+## RU
 
-<h3 align="center"> <a href="#english"><b>English</b></a>/<a href="#русский"><b>Русский</b></a></h3>
+- Форк для исправления проблем запуска **OGSR-Engine** в **CrossOver / Wine (D3DMetal/DXMT)**.
+- Это fork с правками для запуска через Wine/CrossOver на macOS.
 
-![logo](https://github.com/OGSR/OGSR-Engine/assets/16670637/980c7b2c-03cb-4c89-b132-424254faa398)
+- Проверялось на последней вышедшей версии **Gunslinger Addon**.
 
-## English ##
+### Модель веток
 
-### Aim of the project: ###
-* Fix original engine errors
-* Improve and optimize graphics
-* Update engine components
-* Implement new features for developers
+- `3.501_winefixes` — стабильные и проверенные фиксы для релиза `3.501`.
+- `3.501_winefixes_dev` — тестовые/временные изменения до подтверждения.
 
-### [>>Developers<<](https://github.com/OGSR/OGSR-Engine/graphs/contributors) ###
-### [>>Wiki, changelog and more<<](https://github.com/OGSR/OGSR-Engine/wiki) ###
-### [>>Latest release<<](https://github.com/OGSR/OGSR-Engine/releases/latest) ###
-### [Write here](https://github.com/OGSR/OGSR-Engine/issues) to report bugs ###
-### [Write here](https://github.com/OGSR/OGSR-Engine/discussions) your suggestions, questions and everything else ###
+### Сборка на macOS
 
-### Build requirements:
-* Latest version of Visual Studio 2022 or 2026 with Desktop C++ workload setup
-* [Git](https://git-scm.com/)
-### Compilation guide: ###
-* Clone repository locally
-* Run `Update_Components.cmd` to sync engine dependencies
-* Open `Engine.sln` in Visual Studio
-* Set the platform to `x64` and the configuration to `Release`, then select `Build` -> `Build solution`
-### Thanks to: ###
-* [Im-dex](https://github.com/Im-dex)
-* [SkyLoader](https://github.com/SkyLoaderr)
-* [Shoker](https://github.com/ShokerStlk)
-* [OpenXRay](https://github.com/OpenXRay/xray-16)
-* [vTurbine](https://github.com/vTurbine)
-* [solbjorn](https://github.com/solbjorn)
-* [abramcumner](https://github.com/abramcumner)
-* [ForserX](https://github.com/ForserX)
-* [Xottab-DUTY](https://github.com/Xottab-DUTY)
-* [morrey](https://github.com/morrey)
-* [S.T.A.L.K.E.R. Anomaly Engine](https://bitbucket.org/anomalymod/xray-monolith)
-* [X-Ray Engine by Alpet & KD](https://github.com/joye-ramone/xray_xp_dev)
-* [CoC-Xray](https://github.com/revolucas/CoC-Xray)
-* [SCREEN SPACE SHADERS](https://www.moddb.com/mods/stalker-anomaly/addons/screen-space-shaders)
-* [ENHANCED SHADERS AND COLOR GRADING](https://www.moddb.com/mods/stalker-anomaly/addons/enhanced-shaders-and-color-grading-for-151)
-* [Shader 3D Scopes](https://www.moddb.com/mods/stalker-anomaly/addons/shader-3d-scopes)
+### Конфигурация окружения
 
-And everyone else whose work has been used. If you are not mentioned, send a message and you will be added.
+- MacBook Pro 14-inch (2021) (`MacBookPro18,3`)
+- Chip: **Apple M1 Pro** (8 cores)
+- RAM: **16 GB**
+- macOS: **26.2** (build `25C56`)
+- CrossOver: **26 beta 2**
 
-## Русский ##
+- Я собирал этот fork в **UTM** внутри **Windows 11 VM** на macOS.
+- Рекомендуемый путь: собирать движок в VM (Visual Studio/CMake), а запускать игру в CrossOver.
+- Нативную сборку OGSR под macOS в этом fork не поддерживаем.
 
-### Цели проекта: ###
-* Исправление ошибок оригинального движка
-* Улучшение графики и оптимизация
-* Обновление компонентов движка
-* Внедрение новых возможностей для разработчиков
+### Что включено в 3.501_winefixes
 
-### [>>Разработчики<<](https://github.com/OGSR/OGSR-Engine/graphs/contributors) ###
-### [>>Wiki, cписок изменений и прочая информация<<](https://github.com/OGSR/OGSR-Engine/wiki) ###
-### [>>Свежий релиз<<](https://github.com/OGSR/OGSR-Engine/releases/latest) ###
-### Баги можно присылать [сюда](https://github.com/OGSR/OGSR-Engine/issues) ###
-### Предложения, вопросы и прочее можно писать [сюда](https://github.com/OGSR/OGSR-Engine/discussions) ###
+- `winetweak_fullscreen` — возврат эксклюзивного fullscreen-пути под Wine/CrossOver.
+- `winetweak_clipcursor` — принудительное обновление ClipCursor при активном окне.
+- `winetweak_clipcursor_inset` (`0..32`) — сужение прямоугольника курсора.
 
-### Требования для сборки:
-* Актуальная версия Visual Studio 2022 или 2026 с рабочей нагрузкой "Разработка классических приложений на C++"
-* [Git](https://git-scm.com/)
-### Инструкции по сборке: ###
-* Склонировать репозиторий локально
-* Запустить `Update_Components.cmd` для синхронизации зависимостей движка
-* Открыть `Engine.sln` в Visual Studio
-* Выбрать пункт `Сборка` -> `Собрать решение`, предварительно выставив платформу `x64` и конфигурацию `Release`
-### Благодарим: ###
-* [Im-dex](https://github.com/Im-dex)
-* [SkyLoader](https://github.com/SkyLoaderr)
-* [Shoker](https://github.com/ShokerStlk)
-* [OpenXRay](https://github.com/OpenXRay/xray-16)
-* [vTurbine](https://github.com/vTurbine)
-* [solbjorn](https://github.com/solbjorn)
-* [abramcumner](https://github.com/abramcumner)
-* [ForserX](https://github.com/ForserX)
-* [Xottab-DUTY](https://github.com/Xottab-DUTY)
-* [morrey](https://github.com/morrey)
-* [S.T.A.L.K.E.R. Anomaly Engine](https://bitbucket.org/anomalymod/xray-monolith)
-* [X-Ray Engine by Alpet & KD](https://github.com/joye-ramone/xray_xp_dev)
-* [CoC-Xray](https://github.com/revolucas/CoC-Xray)
-* [SCREEN SPACE SHADERS](https://www.moddb.com/mods/stalker-anomaly/addons/screen-space-shaders)
-* [ENHANCED SHADERS AND COLOR GRADING](https://www.moddb.com/mods/stalker-anomaly/addons/enhanced-shaders-and-color-grading-for-151)
-* [Shader 3D Scopes](https://www.moddb.com/mods/stalker-anomaly/addons/shader-3d-scopes)
+### Какие проблемы это закрывает
 
-И всех остальных, чьи работы я использовал. Пишите, если забыл кого-то, добавлю в список.
+- В fullscreen и после Alt+Tab может отваливаться захват мыши.
+- Курсор может выходить за границы окна игры.
+- Полноэкранный режим в Wine/CrossOver на macOS может вести себя нестабильно.
+- Из-за рассинхрона ClipCursor появляются рывки/дёргания мыши.
+
+Если вы воспользовались этим форком и что-то не работает — НЕ мучайте разработчиков основного проекта вопросами и issue.
+
+---
+
+## ENG
+
+- Fork focused on fixing **OGSR-Engine** issues under **CrossOver / Wine (D3DMetal/DXMT)**.
+- This fork contains Wine/CrossOver fixes for running on macOS.
+
+### Branch model
+
+- `3.501_winefixes` — stable, confirmed fixes for upstream release `3.501`.
+- `3.501_winefixes_dev` — in-testing changes before promotion.
+
+### Building on macOS
+
+### Environment
+
+- MacBook Pro 14-inch (2021) (`MacBookPro18,3`)
+- Chip: **Apple M1 Pro** (8 cores)
+- RAM: **16 GB**
+- macOS: **26.2** (build `25C56`)
+- CrossOver: **26 beta 2**
+
+- Tested with the latest publicly released **Gunslinger Addon** version.
+
+- I built this fork in **UTM** using a **Windows 11 VM** on macOS.
+- Recommended workflow: build the engine inside the VM (Visual Studio/CMake), then run the game via CrossOver.
+- Native macOS OGSR builds are not a target of this fork.
+
+### Included in 3.501_winefixes
+
+- `winetweak_fullscreen` — restores exclusive fullscreen path under Wine/CrossOver.
+- `winetweak_clipcursor` — forces ClipCursor refresh while active.
+- `winetweak_clipcursor_inset` (`0..32`) — shrinks ClipCursor rect bounds.
+
+### Problems this fork targets
+
+- Cursor capture breaks in fullscreen and after Alt+Tab.
+- Cursor bounds can leak outside the game window.
+- Fullscreen behavior is unstable under Wine/CrossOver on macOS.
+- Mouse input can stutter due to inconsistent ClipCursor state.
+
+If you use this fork and something breaks, please do NOT bother upstream OGSR developers with questions or issues.
