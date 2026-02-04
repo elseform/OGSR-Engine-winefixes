@@ -9,7 +9,6 @@ on:
         type: choice
         default: Release
         options:
-          - Debug
           - Release
       clean_build:
         description: Clean rebuild (slower)
