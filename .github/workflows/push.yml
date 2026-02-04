@@ -1,15 +1,16 @@
-name: Main Workflow
+name: Build Release 64
 
 on:
   push:
-  pull_request:
+    branches:
+      - '*_winefixes'
+      - '*_winefixes_dev'
   release:
     types:
       - created
 
 jobs:
   build:
-    if: "contains(github.event.head_commit.message, '[ci build]') || github.event_name == 'release'"
     runs-on: [self-hosted, windows, x64, winefixes]
     strategy:
       fail-fast: false
@@ -24,6 +25,23 @@ jobs:
       with:
         fetch-depth: 0
 
+    - name: Cache third-party sources
+      id: cache-3rdparty
+      uses: actions/cache@v4
+      with:
+        path: |
+          3rd_party/Src/DirectXTex/DirectXTex
+          3rd_party/Src/DirectXMesh/DirectXMesh
+          3rd_party/Src/DirectXMath/DirectXMath
+          3rd_party/Src/concurrentqueue/concurrentqueue
+          3rd_party/Src/libsquashfs/squashfs-tools-ng
+          3rd_party/Src/lz4/lz4
+          3rd_party/Src/zstd/zstd
+          3rd_party/Src/mimalloc/mimalloc
+          3rd_party/Src/NVIDIA_DLSS/DLSS
+          3rd_party/Src/cpputils/cpputils
+        key: windows-x64-3rdparty-${{ hashFiles('Update_Components.cmd') }}
+
     - name: Resolve release version
       id: version
       shell: pwsh
@@ -32,13 +50,12 @@ jobs:
         if ("${{ github.event_name }}" -eq "release" -and "${{ github.event.release.tag_name }}" -ne "") {
           $version = "${{ github.event.release.tag_name }}"
         }
-        $version = $version -replace "_dev$", ""
-        $version = $version -replace "_", "-"
+        $version = $version -replace "[\\/:*?""<>|]", "-"
         "value=$version" >> $env:GITHUB_OUTPUT
 
     - name: Update Components
-      run: |
-        ${{ github.workspace }}/Update_Components.cmd
+      shell: cmd
+      run: Update_Components.cmd
 
     - name: Setup MSBuild
       uses: microsoft/setup-msbuild@v2
