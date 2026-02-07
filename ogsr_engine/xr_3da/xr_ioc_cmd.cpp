@@ -525,6 +525,7 @@ void CCC_Register()
     CMD3(CCC_Token, "r_fps_lock", &g_dwFPSlimit, FpsLockToken);
 
     CMD3(CCC_Mask, "rs_v_sync", &psDeviceFlags, rsVSync);
+    CMD3(CCC_Mask, "winetweak_fullscreen", &psDeviceFlags, rsFullscreen);
     //CMD3(CCC_Mask, "rs_fullscreen", &psDeviceFlags, rsFullscreen);
     //CMD3(CCC_Mask, "rs_refresh_60hz", &psDeviceFlags, rsRefresh60hz);
     CMD3(CCC_Mask, "rs_stats", &psDeviceFlags, rsStatistic);
@@ -586,6 +587,8 @@ void CCC_Register()
 #endif
 
     CMD3(CCC_ExclusiveMode, "input_exclusive_mode", &psDeviceFlags, rsExclusiveMode);
+    CMD3(CCC_Mask, "winetweak_clipcursor", &psDeviceFlags, rsForceClipCursor);
+    CMD4(CCC_Integer, "winetweak_clipcursor_inset", &psClipCursorInset, 0, 32);
 
     CMD1(CCC_HideConsole, "hide");
     CMD1(CCC_ClearConsole, "clear");

@@ -26,7 +26,7 @@ ENGINE_API extern BOOL bDebug;
 // psDeviceFlags
 enum
 {
-    //rsFullscreen = (1ul << 0ul),
+    rsFullscreen = (1ul << 0ul),
     rsClearBB = (1ul << 1ul),
     rsVSync = (1ul << 2ul),
     //rsWireframe = (1ul << 3ul),
@@ -47,6 +47,7 @@ enum
     //rsR4 = (1ul << 18ul),
     rsExclusiveMode = 1ul << 19ul,
     rsOcclusionDraw = 1ul << 20ul,
+    rsForceClipCursor = 1ul << 21ul,
 };
 
 //. ENGINE_API extern	u32			psCurrentMode		;
