@@ -1,10 +1,11 @@
 # OGSR-Engine-winefixes
-Форк для исправления проблем запуска **OGSR-Engine** в **CrossOver / Wine (D3DMetal/DXMT)**.
+Форк https://github.com/OGSR/OGSR-Engine для исправления проблем запуска в **CrossOver / Wine (D3DMetal/DXMT)**.
+
 ВНИМАНИЕ: Если вы воспользовались этим форком и что-то не работает — НЕ мучайте разработчиков основного проекта вопросами и issue.
 
 ## RU
 
-### Что включено в 3.501_winefixes
+### Что включено
 
 - `winetweak_fullscreen` — возврат эксклюзивного fullscreen-пути под Wine/CrossOver.
 - `winetweak_clipcursor` — принудительное обновление ClipCursor при активном окне.
