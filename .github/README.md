@@ -1,12 +1,8 @@
 # OGSR-Engine-winefixes
+Форк для исправления проблем запуска **OGSR-Engine** в **CrossOver / Wine (D3DMetal/DXMT)**.
+ВНИМАНИЕ: Если вы воспользовались этим форком и что-то не работает — НЕ мучайте разработчиков основного проекта вопросами и issue.
 
 ## RU
-
-- Форк для исправления проблем запуска **OGSR-Engine** в **CrossOver / Wine (D3DMetal/DXMT)**.
-- Это fork с правками для запуска через Wine/CrossOver на macOS.
-
-- Проверялось на последней вышедшей версии **Gunslinger Addon**
-
 
 ### Что включено в 3.501_winefixes
 
@@ -22,8 +18,6 @@
 - Курсор может выходить за границы окна игры.
 - Полноэкранный режим в Wine/CrossOver на macOS может вести себя нестабильно.
 - Из-за рассинхрона ClipCursor появляются рывки/дёргания мыши.
-
-Если вы воспользовались этим форком и что-то не работает — НЕ мучайте разработчиков основного проекта вопросами и issue.
 
 ### Сборка на macOS
 
@@ -42,7 +36,6 @@
 ## ENG
 
 - Fork focused on fixing **OGSR-Engine** issues under **CrossOver / Wine (D3DMetal/DXMT)**.
-- This fork contains Wine/CrossOver fixes for running on macOS.
 
 
 ### Included in 3.501_winefixes
