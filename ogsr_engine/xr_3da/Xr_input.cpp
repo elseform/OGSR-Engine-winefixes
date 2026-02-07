@@ -9,6 +9,7 @@ IInputReceiver dummyController;
 ENGINE_API float psMouseSens = 0.1f;
 ENGINE_API float psMouseSensScale = 1.f;
 ENGINE_API Flags32 psMouseInvert = {FALSE};
+ENGINE_API int psClipCursorInset = 0;
 
 #define MOUSEBUFFERSIZE 64
 #define KEYBOARDBUFFERSIZE 64
@@ -538,6 +539,55 @@ u16 CInput::DikToChar(const int dik, const bool utf) const
 }
 
 // https://stackoverflow.com/a/36827574
+static bool get_window_clip_rect(RECT& rect)
+{
+    if (!Device.m_hWnd)
+        return false;
+
+    GetClientRect(Device.m_hWnd, &rect);
+
+    POINT ul;
+    ul.x = rect.left;
+    ul.y = rect.top;
+
+    POINT lr;
+    lr.x = rect.right;
+    lr.y = rect.bottom;
+
+    MapWindowPoints(Device.m_hWnd, nullptr, &ul, 1);
+    MapWindowPoints(Device.m_hWnd, nullptr, &lr, 1);
+
+    rect.left = ul.x;
+    rect.top = ul.y;
+
+    rect.right = lr.x;
+    rect.bottom = lr.y;
+
+    return true;
+}
+
+void CInput::clip_cursor_rect()
+{
+    RECT rect;
+    if (get_window_clip_rect(rect))
+    {
+        if (psClipCursorInset > 0)
+        {
+            rect.left += psClipCursorInset;
+            rect.top += psClipCursorInset;
+            rect.right -= psClipCursorInset;
+            rect.bottom -= psClipCursorInset;
+
+            if (rect.right < rect.left)
+                rect.right = rect.left;
+            if (rect.bottom < rect.top)
+                rect.bottom = rect.top;
+        }
+
+        ClipCursor(&rect);
+    }
+}
+
 void CInput::clip_cursor(bool clip)
 {
     if (clip)
@@ -545,30 +595,7 @@ void CInput::clip_cursor(bool clip)
         while (ShowCursor(FALSE) >= 0)
             ;
 
-        if (Device.m_hWnd)
-        {
-            RECT rect;
-            GetClientRect(Device.m_hWnd, &rect);
-
-            POINT ul;
-            ul.x = rect.left;
-            ul.y = rect.top;
-
-            POINT lr;
-            lr.x = rect.right;
-            lr.y = rect.bottom;
-
-            MapWindowPoints(Device.m_hWnd, nullptr, &ul, 1);
-            MapWindowPoints(Device.m_hWnd, nullptr, &lr, 1);
-
-            rect.left = ul.x;
-            rect.top = ul.y;
-
-            rect.right = lr.x;
-            rect.bottom = lr.y;
-
-            ClipCursor(&rect);
-        }
+        clip_cursor_rect();
     }
     else
     {
